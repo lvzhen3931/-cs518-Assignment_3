@@ -16,6 +16,12 @@ static int buf_size = BUF_SIZE;
 static int fds[10];
 static int modes[10];
 static int num_files = 0;
+struct file_metadata{
+	char path[50];
+	int  fds[5];
+	int  modes[5];
+	int  permission[5];
+};
 
 void error(const char *msg)
 {
@@ -25,12 +31,19 @@ void error(const char *msg)
 int f_open(char** tokens, const int num_tokens, char* msg){
 	char* path;
 	int flag;
-	int fd;
+	int fd = -1;
+	int mode;
 	
 	assert(strcmp(tokens[0], "open") == 0);
-	path = tokens[2];
-	flag = atoi(tokens[3]);
-	fd = open(path, flag);
+	mode = atoi(tokens[1]);
+	if(mode < 1 || mode > 3){
+		errno = INVALID_FILE_MODE;
+	}
+	else{
+		path = tokens[2];
+		flag = atoi(tokens[3]);
+		fd = open(path, flag);
+	}
 	if(fd < 0){
 		sprintf(msg, "%d,%d", FAILURE_RET, errno);
 	}
@@ -149,18 +162,22 @@ void* process(void* fd)
 	/* Tokenize massage */
 	tokens = tokenize(buffer, ',', &num_tokens); 
 	if(strcmp(tokens[0], "open") == 0){
+		printf("processing open request\n");
 		f_open(tokens, num_tokens, msg);	
 	}
 	else
 	if(strcmp(tokens[0], "read") == 0){
+		printf("processing read request\n");
 		f_read(tokens, num_tokens, msg);
 	}
 	else
 	if(strcmp(tokens[0], "write") == 0){
+		printf("processing write request\n");
 		f_write(tokens, num_tokens, msg);
 	}
 	else
 	if(strcmp(tokens[0], "close") == 0){
+		printf("processing close request\n");
 		f_close(tokens, num_tokens, msg);
 	}
 	else{
