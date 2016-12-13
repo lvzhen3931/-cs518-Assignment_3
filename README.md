@@ -1,15 +1,15 @@
 # -cs518-Assignment_3
 Remote files
 ## usage:
-  >make
+  $make
   on server side:
-  >./server
+  $./server
   on client side:
-  >./client [server address]
+  $./client [server address]
   example:
-    >make
-    >./server
-    >./client rm.cs.rutgers.edu
+    $make
+    $./server
+    $./client rm.cs.rutgers.edu
 ## Client side:
   We implemented netserverinit, netopen, netread, netwrite and netclose on libnetfiles.c, also there's helper functions called start_session, end_session that basicly deal with connecting to server and disconnecting from server. Below are details of implementation of the remote file operations.
   ### netserverinit
