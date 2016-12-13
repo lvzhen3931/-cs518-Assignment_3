@@ -36,3 +36,9 @@ Remote files<br />
   
 ## Extension A
   Three file modes are supported by the lib. "UNRES","EXCLU",and "TRANS". We add global state file_metadata for each file opened. Inside a file_metadata, we maintain the filemode and read write permission for each file descriptor, so for every file opened, we have all the state of this file for different remote process. Thus we can keep track of every other thread's mode and permission on the same file and restrict the operation allowed for the file. If operation is not allowed, in f_open function the errno is set to INVALID_OPERATION_MODE. For example, if "test.c" is already opened in "UNRES" mode with "O_RDWR" permission in thread 1, and thread 2 is trying to open it in "EXCLU" mode, then it is not allowed and errno is set to let client know that the operation is invalid. After a thread close the file, that file's metadata get updated and other threads can access it now if a conflict was there. 
+
+## Extension B
+  To transfer large file over multiple connections. We first set up 4 connections use spawned 4 worker threads.The whole file to read/write is divided into 4 parts. We can then caculate location of the 4 pointers. By modifying already existed net_read/net_write function, we actually transfering the each part corresponding to 4 sockets. Multiple connections configuration which has information containing port numbers are passed to the clients for connection setup.
+  
+## Extension C
+  We maintained a queue on the server side. When open(),read(),write(),close() raise exceptions, we catch the exception and store metadata related to the operation onto queue. 
