@@ -17,7 +17,7 @@ static int fds[10];
 static int modes[10];
 static int num_files = 0;
 
-// To Enqueue an String
+// To Enqueue an operation
 void Enqueue(char* x) {
 	struct Node* temp = 
 		(struct Node*)malloc(sizeof(struct Node));
@@ -31,7 +31,7 @@ void Enqueue(char* x) {
 	rear = temp;
 }
 
-// To Dequeue an integer.
+// To Dequeue an opertion
 void Dequeue() {
 	struct Node* temp = front;
 	if(front == NULL) {
@@ -55,7 +55,8 @@ char* Front() {
 	return front->data;
 }
 
-void PutToFront(){
+//put to front
+void PutToFront(char* x){
 	struct Node* temp = 
 		(struct Node*)malloc(sizeof(struct Node));
 	temp->data =x; 
