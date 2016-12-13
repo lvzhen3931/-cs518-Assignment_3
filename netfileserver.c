@@ -55,15 +55,6 @@ void Dequeue() {
 	}
 	free(temp);
 }
-
-char* Front() {
-	if(front == NULL) {
-		printf("Queue is empty\n");
-		return;
-	}
-	return front->data;
-}
-
 //put to front
 void PutToFront(char* x){
 	struct Node* temp = 
@@ -267,7 +258,6 @@ void* process_queue(void* fd)
     if (status < 0) error("ERROR reading from socket");
 	/* Tokenize massage */
 	tokens = tokenize(buffer, ',', &num_tokens); 
-	Enqueue(tokens)
 	if(strcmp(tokens[0], "open") == 0){
 		printf("processing open request\n");
 		f_open(tokens, num_tokens, msg);
