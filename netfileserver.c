@@ -17,6 +17,15 @@ static int fds[10];
 static int modes[10];
 static int num_files = 0;
 
+//Queue - Linked List implementation
+struct Node {
+	char* data;
+	struct Node* next;
+};
+// Two glboal variables to store address of front and rear nodes. 
+struct Node* front = NULL;
+struct Node* rear = NULL;
+
 // To Enqueue an operation
 void Enqueue(char* x) {
 	struct Node* temp = 
