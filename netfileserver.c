@@ -17,6 +17,12 @@ static int fds[10];
 static int modes[10];
 static int num_files = 0;
 
+typedef struct multi_connection_conf{
+	int connection_number;
+	int[] port_number; 
+} multi_connection_conf;
+
+
 //Queue - Linked List implementation
 struct Node {
 	char* data;
