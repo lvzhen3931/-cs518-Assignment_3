@@ -41,4 +41,4 @@ Remote files<br />
   To transfer large file over multiple connections. We first set up 4 connections use spawned 4 worker threads.The whole file to read/write is divided into 4 parts. We can then caculate location of the 4 pointers. By modifying already existed net_read/net_write function, we actually transfering the each part corresponding to 4 sockets. Multiple connections configuration which has information containing port numbers are passed to the clients for connection setup.
   
 ## Extension C
-  We maintained a queue on the server side. When open(),read(),write(),close() raise exceptions, we catch the exception and store metadata related to the operation onto queue. 
+  We maintained a queue on the server side. When open(),read(),write(),close() raise exceptions, we catch the exception and store metadata related to the operation onto queue. The queue is used to store operation metadata. queue pops operations from front end. Program then performing operation.
