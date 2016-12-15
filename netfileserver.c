@@ -19,7 +19,7 @@ static int num_files = 0;
 
 typedef struct multi_connection_conf{
 	int connection_number;
-	int[] port_number; 
+	int port_number[]; 
 } multi_connection_conf;
 
 
